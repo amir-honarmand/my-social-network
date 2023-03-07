@@ -1,5 +1,5 @@
 import express from 'express';
-import * as cors from 'cors';
+import cors from 'cors';
 
 export default async (app: express.Express) => {
     app.use(express.json());

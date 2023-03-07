@@ -29,7 +29,7 @@ export const ValidateSignature = (req: Request): boolean => {
 
   if (signature) {
     const payload: string | jwt.JwtPayload = jwt.verify(signature.split(" ")[1], config.APP_SECRET);
-    req.user = payload;
+    // req.user = payload;
     return true;
   };
 

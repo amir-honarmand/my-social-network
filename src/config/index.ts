@@ -1,6 +1,6 @@
 import * as dotEnv from "dotenv";
 
-if (process.env.NODE_ENV !== "prod") {
+if (process.env.NODE_ENV !== "production") {
   const configFile: string = `./.env`;
   dotEnv.config({ path: configFile });
 } else {
