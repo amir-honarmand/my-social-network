@@ -1,13 +1,20 @@
 import express from 'express';
 import config from './config';
-import expressApp from './express-app';
-import databaseConnection from './database/postgres';
+import expressApp from './app/express-app';
+import {postgres} from './database/postgres';
 
 const StartServer = async () => {
 
     const app: express.Express = express();
-
-    await databaseConnection();
+    
+    try {
+        await postgres.initialize();
+        console.log('========> DATABASE CONNECTION SUCCESSFUL <========');
+    } catch (error) {
+        console.error(error);
+        console.error('DATABASE CONNECTION ERROR!!!');
+        process.exit(1);
+    };
 
     await expressApp(app);
 

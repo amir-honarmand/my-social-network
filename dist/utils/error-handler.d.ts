@@ -1,9 +1,7 @@
-declare const createLogger: any, transports: any;
-declare const AppError: any;
-declare const LogErrors: any;
-declare class ErrorLogger {
-    constructor();
-    logError(err: any): Promise<boolean>;
-    isTrustError(error: any): any;
+export declare class BaseError extends Error {
+    name: string;
+    status: number;
+    description: string;
+    isOperational: boolean;
+    constructor(name: string, status: number, description: string, isOperational?: boolean);
 }
-declare const ErrorHandler: (err: any, req: any, res: any, next: any) => Promise<any>;

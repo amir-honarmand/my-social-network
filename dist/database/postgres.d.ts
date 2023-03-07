@@ -1,2 +1,2 @@
-declare const _default: () => Promise<void>;
-export default _default;
+import { DataSource } from "typeorm";
+export declare const postgres: DataSource;

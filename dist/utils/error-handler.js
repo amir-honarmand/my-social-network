@@ -1,58 +1,19 @@
 "use strict";
-const { createLogger, transports } = require('winston');
-const { AppError } = require('./app-errors');
-const LogErrors = createLogger({
-    transports: [
-        new transports.Console(),
-        new transports.File({ filename: 'app_error.log' })
-    ]
-});
-class ErrorLogger {
-    constructor() { }
-    async logError(err) {
-        console.log('==================== Start Error Logger ===============');
-        LogErrors.log({
-            private: true,
-            level: 'error',
-            message: `${new Date()}-${JSON.stringify(err)}`
-        });
-        console.log('==================== End Error Logger ===============');
-        return false;
-    }
-    isTrustError(error) {
-        if (error instanceof AppError) {
-            return error.isOperational;
-        }
-        else {
-            return false;
-        }
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseError = void 0;
+class BaseError extends Error {
+    constructor(name, status, description, isOperational = true) {
+        super(description);
+        this.name = name;
+        this.status = status;
+        this.description = description;
+        this.isOperational = isOperational;
+        Object.setPrototypeOf(this, new.target.prototype);
+        this.name = name;
+        this.status = status;
+        this.isOperational = isOperational;
+        Error.captureStackTrace(this);
     }
 }
-const ErrorHandler = async (err, req, res, next) => {
-    const errorLogger = new ErrorLogger();
-    process.on('uncaughtException', (reason, promise) => {
-        console.log(reason, 'UNHANDLED');
-        throw reason;
-    });
-    process.on('uncaughtException', (error) => {
-        errorLogger.logError(error);
-        if (errorLogger.isTrustError(err)) {
-        }
-    });
-    if (err) {
-        await errorLogger.logError(err);
-        if (errorLogger.isTrustError(err)) {
-            if (err.errorStack) {
-                const errorDescription = err.errorStack;
-                return res.status(err.statusCode).json({ 'message': errorDescription });
-            }
-            return res.status(err.statusCode).json({ 'message': err.message });
-        }
-        else {
-        }
-        return res.status(err.statusCode).json({ 'message': err.message });
-    }
-    next();
-};
-module.exports = ErrorHandler;
+exports.BaseError = BaseError;
 //# sourceMappingURL=error-handler.js.map
