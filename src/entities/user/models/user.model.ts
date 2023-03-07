@@ -37,7 +37,7 @@ export class User {
     timezone: string
 
     @Column('jsonb', {nullable: false})
-    favorites_id: string
+    favorites_id: object
 
     @CreateDateColumn()
     createdAt: Date

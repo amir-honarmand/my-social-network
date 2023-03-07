@@ -60,7 +60,7 @@ __decorate([
 ], User.prototype, "timezone", void 0);
 __decorate([
     (0, typeorm_1.Column)('jsonb', { nullable: false }),
-    __metadata("design:type", String)
+    __metadata("design:type", Object)
 ], User.prototype, "favorites_id", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),

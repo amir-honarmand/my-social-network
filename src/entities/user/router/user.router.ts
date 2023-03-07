@@ -1,12 +1,16 @@
 import express, { Router } from 'express';
-import { registerController } from '../controllers/user.controller';
+import { loginController, registerController } from '../controllers/user.controller';
 // import authMiddleware from '../../../middlewares/auth-middleware';
-// import { userRegisterDto } from '../dto/user.dto';
-// import { dtoValidator } from '../../../middlewares/dtoValidator';
+import { UserRegisterDto } from '../dto/user-register.dto';
+import { dtoValidator } from '../../../middlewares/dtoValidator';
+import { UserLoginDto } from '../dto/user-login.dto';
 
 const userRouter: Router = express.Router();
 
 userRouter.route('/register')
-.post(registerController)
+.post(dtoValidator(UserRegisterDto), registerController)
+
+userRouter.route('/login')
+.post(dtoValidator(UserLoginDto), loginController)
 
 export default userRouter;

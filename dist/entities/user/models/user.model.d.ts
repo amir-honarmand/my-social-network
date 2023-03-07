@@ -11,7 +11,7 @@ export declare class User {
     status: userStatus;
     avatar: object;
     timezone: string;
-    favorites_id: string;
+    favorites_id: object;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;

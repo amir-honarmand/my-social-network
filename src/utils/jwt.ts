@@ -30,7 +30,7 @@ export const jwtVerify = (token: string, secret: string, userType: string) => {
 }
 
 export class Token {
-	constructor(readonly userId: string, readonly userType: string) { }
+	constructor(readonly userId: string | number, readonly userType: string) { }
 
 	private date: Date = new Date();
 	private secret: string = config.AUTHENTICATION.USER_SECRET;
