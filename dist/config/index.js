@@ -29,10 +29,17 @@ if (process.env.NODE_ENV !== "production") {
     dotEnv.config({ path: configFile });
 }
 else {
-    dotEnv.config();
+    const configFile = `./.env.prod`;
+    dotEnv.config({ path: configFile });
 }
 exports.default = {
     PORT: process.env.PORT,
     APP_SECRET: process.env.APP_SECRET,
+    DATABASE: {
+        HOST: process.env.DATABASE_HOST,
+        USERNAME: process.env.DATABASE_USERNAME,
+        PASS: process.env.DATABASE_PASSWORD,
+        NAME: process.env.DATABASE_NAME
+    }
 };
 //# sourceMappingURL=index.js.map

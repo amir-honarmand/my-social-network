@@ -1,12 +1,13 @@
 import express from 'express';
 import config from './config';
 import expressApp from './express-app';
+import databaseConnection from './database/postgres';
 
 const StartServer = async () => {
 
     const app: express.Express = express();
 
-    // await databaseConnection();
+    await databaseConnection();
 
     await expressApp(app);
 
