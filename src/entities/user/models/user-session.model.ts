@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm"
 import { User } from "./user.model"
 
 @Entity()
@@ -7,7 +7,8 @@ export class UserSession {
     id: number
 
     @ManyToOne(()=> User)
-    user: User | number
+    @JoinColumn({name: 'user_id'})
+    user_id: User | number
     
     @Column('varchar', {length: 200, nullable: true})
     ip: string

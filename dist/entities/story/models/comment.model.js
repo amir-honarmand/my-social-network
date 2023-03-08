@@ -25,10 +25,12 @@ __decorate([
 ], Comment.prototype, "caption", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_model_1.User),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
     __metadata("design:type", Object)
 ], Comment.prototype, "user_id", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => story_model_1.Story),
+    (0, typeorm_1.JoinColumn)({ name: 'story_id' }),
     __metadata("design:type", Object)
 ], Comment.prototype, "story_id", void 0);
 __decorate([

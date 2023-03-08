@@ -1,4 +1,3 @@
-import { UserSession } from "../entities/user/models/user-session.model";
-import { User } from "../entities/user/models/user.model";
-declare const _default: (typeof User | typeof UserSession)[];
+import { Storyboard } from "../entities/storyboard/models/storyboard.model";
+declare const _default: (typeof Storyboard)[];
 export default _default;

@@ -8,11 +8,11 @@ const user_session_model_1 = require("../models/user-session.model");
 const user_model_1 = require("../models/user.model");
 exports.UserRepository = (() => {
     async function removeUserSession(userId) {
-        await postgres_1.postgres.getRepository(user_session_model_1.UserSession).delete({ user: userId });
+        await postgres_1.postgres.getRepository(user_session_model_1.UserSession).delete({ user_id: userId });
     }
     async function addUserSession(userId, accessToken, refreshToken, accessExpiresAt, refreshExpiresAt) {
         await postgres_1.postgres.getRepository(user_session_model_1.UserSession).insert({
-            user: userId,
+            user_id: userId,
             accessToken,
             refreshToken,
             accessExpiresAt: new Date(accessExpiresAt),

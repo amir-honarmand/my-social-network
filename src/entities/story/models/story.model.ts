@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, JoinColumn } from "typeorm"
 import { Storyboard } from "../../storyboard/models/storyboard.model"
 import { User } from "../../user/models/user.model"
+import { StoryStatus } from "../enums/story-status.enum"
 import { StoryDetails } from "./story-details.model"
 
 @Entity()
@@ -14,23 +15,26 @@ export class Story {
     @Column('varchar', {length: 500, nullable: true})
     content_url: string
     
-    @Column('enum', {enum: [], default: ''})
-    status: []
+    @Column('enum', {enum: StoryStatus, default: StoryStatus.PUBLISHING})
+    status: StoryStatus
 
-    @ManyToOne(()=> Storyboard)
+    @ManyToOne(()=> Storyboard, {nullable: false})
+    @JoinColumn({name: 'storyboard_id'})
     storyboard_id: Storyboard | number
 
-    @ManyToOne(()=> User)
+    @ManyToOne(()=> User, {nullable: false})
+    @JoinColumn({name: 'user_id'})
     user_id: User | number
 
-    @ManyToOne(()=> StoryDetails)
+    @ManyToOne(()=> StoryDetails, {nullable: false})
+    @JoinColumn({name: 'story_details_id'})
     story_details_id: StoryDetails | number
 
     @Column('jsonb', {nullable: false})
-    favorites_id: []
+    favorites_id: number[]
 
-    @Column('jsonb', {nullable: false})
-    tags_id: []
+    @Column('jsonb')
+    tags_id: number[]
 
     @CreateDateColumn()
     createdAt: Date

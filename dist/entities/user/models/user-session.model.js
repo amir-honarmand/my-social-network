@@ -20,8 +20,9 @@ __decorate([
 ], UserSession.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_model_1.User),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
     __metadata("design:type", Object)
-], UserSession.prototype, "user", void 0);
+], UserSession.prototype, "user_id", void 0);
 __decorate([
     (0, typeorm_1.Column)('varchar', { length: 200, nullable: true }),
     __metadata("design:type", String)

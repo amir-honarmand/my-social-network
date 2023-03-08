@@ -13,6 +13,7 @@ exports.Story = void 0;
 const typeorm_1 = require("typeorm");
 const storyboard_model_1 = require("../../storyboard/models/storyboard.model");
 const user_model_1 = require("../../user/models/user.model");
+const story_status_enum_1 = require("../enums/story-status.enum");
 const story_details_model_1 = require("./story-details.model");
 let Story = class Story {
 };
@@ -29,19 +30,22 @@ __decorate([
     __metadata("design:type", String)
 ], Story.prototype, "content_url", void 0);
 __decorate([
-    (0, typeorm_1.Column)('enum', { enum: [], default: '' }),
-    __metadata("design:type", Array)
+    (0, typeorm_1.Column)('enum', { enum: story_status_enum_1.StoryStatus, default: story_status_enum_1.StoryStatus.PUBLISHING }),
+    __metadata("design:type", String)
 ], Story.prototype, "status", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => storyboard_model_1.Storyboard),
+    (0, typeorm_1.ManyToOne)(() => storyboard_model_1.Storyboard, { nullable: false }),
+    (0, typeorm_1.JoinColumn)({ name: 'storyboard_id' }),
     __metadata("design:type", Object)
 ], Story.prototype, "storyboard_id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => user_model_1.User),
+    (0, typeorm_1.ManyToOne)(() => user_model_1.User, { nullable: false }),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
     __metadata("design:type", Object)
 ], Story.prototype, "user_id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => story_details_model_1.StoryDetails),
+    (0, typeorm_1.ManyToOne)(() => story_details_model_1.StoryDetails, { nullable: false }),
+    (0, typeorm_1.JoinColumn)({ name: 'story_details_id' }),
     __metadata("design:type", Object)
 ], Story.prototype, "story_details_id", void 0);
 __decorate([
@@ -49,7 +53,7 @@ __decorate([
     __metadata("design:type", Array)
 ], Story.prototype, "favorites_id", void 0);
 __decorate([
-    (0, typeorm_1.Column)('jsonb', { nullable: false }),
+    (0, typeorm_1.Column)('jsonb'),
     __metadata("design:type", Array)
 ], Story.prototype, "tags_id", void 0);
 __decorate([

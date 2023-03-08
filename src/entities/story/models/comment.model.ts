@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, JoinColumn } from "typeorm"
 import { User } from "../../user/models/user.model"
 import { Story } from "./story.model"
 
@@ -11,9 +11,11 @@ export class Comment {
     caption: string
     
     @ManyToOne(()=> User)
+    @JoinColumn({name: 'user_id'})
     user_id: User | number
     
     @ManyToOne(()=> Story)
+    @JoinColumn({name: 'story_id'})
     story_id: Story | number
 
     @CreateDateColumn()

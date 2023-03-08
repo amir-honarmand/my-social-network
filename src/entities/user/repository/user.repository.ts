@@ -8,12 +8,12 @@ import { User } from "../models/user.model";
 
 export const UserRepository = (() => {
     async function removeUserSession(userId: number): Promise<void> {
-        await postgres.getRepository(UserSession).delete({ user: userId });
+        await postgres.getRepository(UserSession).delete({ user_id: userId });
     }
 
     async function addUserSession(userId: number, accessToken: string, refreshToken: string, accessExpiresAt: Date, refreshExpiresAt: Date): Promise<void> {
         await postgres.getRepository(UserSession).insert({
-            user: userId,
+            user_id: userId,
             accessToken,
             refreshToken,
             accessExpiresAt: new Date(accessExpiresAt),
