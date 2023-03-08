@@ -34,6 +34,7 @@ else {
 }
 exports.default = {
     PORT: process.env.PORT,
+    BASE_URL: 'http://localhost:8001/v1',
     DATABASE: {
         HOST: process.env.DATABASE_HOST,
         USERNAME: process.env.DATABASE_USERNAME,

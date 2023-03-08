@@ -10,6 +10,7 @@ if (process.env.NODE_ENV !== "production") {
 
 export default {
   PORT: process.env.PORT,
+  BASE_URL: 'http://localhost:8001/v1',
   
   DATABASE: {
     HOST: process.env.DATABASE_HOST,

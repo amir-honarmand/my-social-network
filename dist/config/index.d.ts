@@ -1,5 +1,6 @@
 declare const _default: {
     PORT: string;
+    BASE_URL: string;
     DATABASE: {
         HOST: string;
         USERNAME: string;

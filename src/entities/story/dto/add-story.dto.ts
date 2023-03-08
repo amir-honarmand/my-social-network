@@ -5,7 +5,7 @@ export const AddStoryDto = {
     body: {
         caption: Joi.string().max(800),
         favorites_id: Joi.array().items(Joi.number().required()).required(),
-        tags_id: Joi.array().items(Joi.number()),
+        tags_id: Joi.array().items(Joi.number().required()),
     },
 };
 

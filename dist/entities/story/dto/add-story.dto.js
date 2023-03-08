@@ -8,8 +8,8 @@ const joi_1 = __importDefault(require("joi"));
 exports.AddStoryDto = {
     body: {
         caption: joi_1.default.string().max(800),
-        favorites_id: joi_1.default.array().items(joi_1.default.number().required()).required(),
-        tags_id: joi_1.default.array().items(joi_1.default.number()),
+        favorites_id: joi_1.default.array().items(joi_1.default.number().required()),
+        tags_id: joi_1.default.array().items(joi_1.default.number().required()),
     },
 };
 //# sourceMappingURL=add-story.dto.js.map
