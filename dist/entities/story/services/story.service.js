@@ -15,7 +15,12 @@ const addStory = async (addStoryDto, file, userId) => {
     await story_repository_1.storyRepository.addStory(addStoryDto);
     return true;
 };
+const getStory = async (getStoryDto) => {
+    const story = await story_repository_1.storyRepository.getStory(getStoryDto);
+    return story;
+};
 exports.default = {
     addStory,
+    getStory
 };
 //# sourceMappingURL=story.service.js.map

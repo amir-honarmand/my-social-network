@@ -1,5 +1,8 @@
 import { postgres } from "../../../database/postgres";
+import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
+import { BaseError } from "../../../utils/error-handler";
 import { AddStoryDto } from "../dto/add-story.dto";
+import { GetStoryDto } from "../dto/get-story.dto";
 import { Story } from "../models/story.model";
 
 export const storyRepository = (() => {
@@ -15,7 +18,32 @@ export const storyRepository = (() => {
         });
     }
 
+    async function getStory(getStoryDto: GetStoryDto): Promise<Story> {
+        const story = await postgres.getRepository(Story).findOne({
+            where: {
+                id: +getStoryDto.storyId
+            },
+            select: {
+                id: true,
+                caption: true,
+                content_url: true,
+                status: true,
+                favorites_id: true,
+                tags_id: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        });
+
+        if(!story){
+            throw new BaseError(HttpStatusMessages.NOT_FOUND, HttpStatusCodes.NOT_FOUND, '')
+        };
+        
+        return story;
+    }
+
     return {
-        addStory
+        addStory,
+        getStory
     };
 })();

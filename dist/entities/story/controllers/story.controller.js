@@ -18,7 +18,19 @@ const addStory = async (req, res) => {
         return res.status(errorRes.status).json((0, http_response_1.response)(errorRes.status, errorRes.message, null, errorRes));
     }
 };
+const getStory = async (req, res) => {
+    try {
+        const data = await story_service_1.default.getStory(req.params);
+        return res.status(http_status_code_1.HttpStatusCodes.OK)
+            .json((0, http_response_1.response)(http_status_code_1.HttpStatusCodes.OK, http_status_code_1.HttpStatusMessages.OK, data));
+    }
+    catch (error) {
+        const errorRes = (0, global_exception_1.globalException)(error);
+        return res.status(errorRes.status).json((0, http_response_1.response)(errorRes.status, errorRes.message, null, errorRes));
+    }
+};
 exports.default = {
     addStory,
+    getStory
 };
 //# sourceMappingURL=story.controller.js.map
