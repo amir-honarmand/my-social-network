@@ -6,7 +6,7 @@ const multerStorageConfig = (mainDirectory: string) => {
     return multer.diskStorage({
         destination(req, file, callback) {
             const fileType: string = file.mimetype.split('/')[0];
-            const finalPath: string = `uploads/${mainDirectory}/${fileType}`;
+            const finalPath: string = `public/uploads/${mainDirectory}/${fileType}`;
             callback(null, finalPath);
         },
         async filename(req, file, callback) {
