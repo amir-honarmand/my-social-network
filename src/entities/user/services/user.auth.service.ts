@@ -1,6 +1,6 @@
 import { customAlphabet } from "nanoid/async";
 import redis from "../../../database/redis-config";
-import { httpStatusCodes, httpStatusMessages } from "../../../shared/http-status-code";
+import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
 import { Token } from "../../../utils/jwt";
 import { BaseError } from "../../../utils/error-handler";
 import { UserRepository } from "../repository/user.repository";
@@ -31,7 +31,7 @@ export const login = async (userDto: UserLoginDto): Promise<object | BaseError> 
     /* password validation */
 	const checkPassword = await validatePass(userDto.password, user.salt, user.password);
     if(!checkPassword)
-    throw new BaseError(httpStatusMessages.NOT_FOUND, httpStatusCodes.NOT_FOUND, `Email or password incorrect!`);
+    throw new BaseError(HttpStatusMessages.NOT_FOUND, HttpStatusCodes.NOT_FOUND, `Email or password incorrect!`);
 
     /* token generate */
 	const token: Token = new Token((user.id), role.USER);

@@ -6,15 +6,15 @@ export class Storyboard {
     @PrimaryGeneratedColumn()
     id: number
 
-    // @Column('jsonb', {nullable: false})
+    // @Column('varchar', {nullable: false})
     // : []
 
-    // @CreateDateColumn()
-    // createdAt: Date
+    @CreateDateColumn()
+    createdAt: Date
 
-    // @UpdateDateColumn()
-    // updatedAt: Date
+    @UpdateDateColumn()
+    updatedAt: Date
 
-    // @DeleteDateColumn()
-    // deletedAt: Date
+    @DeleteDateColumn()
+    deletedAt: Date
 }

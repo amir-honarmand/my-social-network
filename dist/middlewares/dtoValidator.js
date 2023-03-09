@@ -19,7 +19,7 @@ const dtoValidator = (schema) => (req, res, next) => {
         for (const err of error.details) {
             errorMessage += " [ " + err.path.join(" > ") + err.message.slice(err.message.lastIndexOf('"') + 1) + " ] ";
         }
-        return res.status(http_status_code_1.httpStatusCodes.BAD_REQUEST).json((0, http_response_1.response)(http_status_code_1.httpStatusCodes.BAD_REQUEST, http_status_code_1.httpStatusMessages.BAD_REQUEST, null, errorMessage));
+        return res.status(http_status_code_1.HttpStatusCodes.BAD_REQUEST).json((0, http_response_1.response)(http_status_code_1.HttpStatusCodes.BAD_REQUEST, http_status_code_1.HttpStatusMessages.BAD_REQUEST, null, errorMessage));
     }
     Object.assign(req, value);
     return next();

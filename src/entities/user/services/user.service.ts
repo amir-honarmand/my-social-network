@@ -1,4 +1,4 @@
-import { httpStatusCodes, httpStatusMessages } from "../../../shared/http-status-code";
+import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
 import { BaseError } from "../../../utils/error-handler";
 import { UserRepository } from "../repository/user.repository";
 

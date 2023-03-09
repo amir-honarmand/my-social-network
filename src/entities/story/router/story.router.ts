@@ -8,7 +8,12 @@ import uploader from '../../../middlewares/uploader';
 const storyRouter: Router = express.Router();
 
 storyRouter.route('/op')
-.post(dtoValidator(AddStoryDto), uploader.storyFileUpload.single('content-file') , storyController.addStory)
+.post(
+    authMiddleware.userAuthMiddleware,
+    uploader.storyFileUpload.single('content-file'),
+    dtoValidator(AddStoryDto),
+    storyController.addStory
+)
 // .put(/* dtoValidator() ,*/ )
 
 export default storyRouter;

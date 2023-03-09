@@ -1,4 +1,4 @@
-export declare enum httpStatusCodes {
+export declare enum HttpStatusCodes {
     OK = 200,
     CREATED = 201,
     BAD_REQUEST = 400,
@@ -10,7 +10,7 @@ export declare enum httpStatusCodes {
     UNPROCESSABLE_ENTITY = 422,
     SERVICE_UNAVAILABLE = 503
 }
-export declare enum httpStatusMessages {
+export declare enum HttpStatusMessages {
     OK = "OK",
     CREATED = "CREATED",
     BAD_REQUEST = "BAD_REQUEST",
@@ -21,4 +21,8 @@ export declare enum httpStatusMessages {
     CONFLICT = "CONFLICT",
     UNPROCESSABLE_ENTITY = "UNPROCESSABLE_ENTITY",
     SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE"
+}
+export declare enum DatabaseErrorCodes {
+    not_null_violation = "23502",
+    unique_violation = "23505"
 }

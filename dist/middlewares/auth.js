@@ -14,22 +14,22 @@ const userAuth = (userType, tokenType) => async (req, res, next) => {
     try {
         let authorization = req?.headers?.authorization ?? null;
         if (!authorization)
-            throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.UNAUTHORIZED, http_status_code_1.httpStatusCodes.UNAUTHORIZED, http_status_code_1.httpStatusMessages.UNAUTHORIZED, true);
+            throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.UNAUTHORIZED, http_status_code_1.HttpStatusCodes.UNAUTHORIZED, http_status_code_1.HttpStatusMessages.UNAUTHORIZED, true);
         const tokenArray = authorization?.split(" ");
         if (!tokenArray || tokenArray[0] != "Bearer" || !tokenArray[1])
-            throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.UNAUTHORIZED, http_status_code_1.httpStatusCodes.UNAUTHORIZED, http_status_code_1.httpStatusMessages.UNAUTHORIZED, true);
+            throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.UNAUTHORIZED, http_status_code_1.HttpStatusCodes.UNAUTHORIZED, http_status_code_1.HttpStatusMessages.UNAUTHORIZED, true);
         let token = tokenArray[1];
         let payload = null;
         try {
             payload = (0, jwt_1.jwtVerify)(token, null, userType);
             if (!payload?.id || userType !== payload.userType || tokenType !== payload.tokenType) {
-                throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.UNAUTHORIZED, http_status_code_1.httpStatusCodes.UNAUTHORIZED, http_status_code_1.httpStatusMessages.UNAUTHORIZED, true);
+                throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.UNAUTHORIZED, http_status_code_1.HttpStatusCodes.UNAUTHORIZED, http_status_code_1.HttpStatusMessages.UNAUTHORIZED, true);
             }
             ;
         }
         catch (error) {
-            return res.status(error?.status || http_status_code_1.httpStatusCodes.INTERNAL_SERVER)
-                .json((0, http_response_1.response)(error?.status || http_status_code_1.httpStatusCodes.INTERNAL_SERVER, error?.name || http_status_code_1.httpStatusMessages.INTERNAL_SERVER, null, error));
+            return res.status(error?.status || http_status_code_1.HttpStatusCodes.INTERNAL_SERVER)
+                .json((0, http_response_1.response)(error?.status || http_status_code_1.HttpStatusCodes.INTERNAL_SERVER, error?.name || http_status_code_1.HttpStatusMessages.INTERNAL_SERVER, null, error));
         }
         ;
         let user = null;
@@ -38,17 +38,17 @@ const userAuth = (userType, tokenType) => async (req, res, next) => {
         if (userType == roles_enum_1.role.USER) {
             user = await postgres_1.postgres.getRepository(user_model_1.User).findOneBy({ id: payload.id });
             if (user.status === user_status_enum_1.userStatus.BLOCK) {
-                throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.FORBIDDEN, http_status_code_1.httpStatusCodes.FORBIDDEN, 'You are blocked!', true);
+                throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.FORBIDDEN, http_status_code_1.HttpStatusCodes.FORBIDDEN, 'You are blocked!', true);
             }
             ;
             if (user.status === user_status_enum_1.userStatus.INACTIVE) {
-                throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.FORBIDDEN, http_status_code_1.httpStatusCodes.FORBIDDEN, 'You are inactive!', true);
+                throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.FORBIDDEN, http_status_code_1.HttpStatusCodes.FORBIDDEN, 'You are inactive!', true);
             }
             ;
             sessionModel = postgres_1.postgres.getRepository(user_session_model_1.UserSession);
         }
         if (!user) {
-            throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.UNAUTHORIZED, http_status_code_1.httpStatusCodes.UNAUTHORIZED, 'User not found, unauthorized!', true);
+            throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.UNAUTHORIZED, http_status_code_1.HttpStatusCodes.UNAUTHORIZED, 'User not found, unauthorized!', true);
         }
         ;
         if (tokenType == "refresh") {
@@ -62,7 +62,7 @@ const userAuth = (userType, tokenType) => async (req, res, next) => {
             });
         }
         if (!session) {
-            throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.UNAUTHORIZED, http_status_code_1.httpStatusCodes.UNAUTHORIZED, http_status_code_1.httpStatusMessages.UNAUTHORIZED, true);
+            throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.UNAUTHORIZED, http_status_code_1.HttpStatusCodes.UNAUTHORIZED, http_status_code_1.HttpStatusMessages.UNAUTHORIZED, true);
         }
         ;
         req.sessionEntity = session;
@@ -70,8 +70,8 @@ const userAuth = (userType, tokenType) => async (req, res, next) => {
         next();
     }
     catch (error) {
-        return res.status(error?.status || http_status_code_1.httpStatusCodes.INTERNAL_SERVER)
-            .json((0, http_response_1.response)(error?.status || http_status_code_1.httpStatusCodes.INTERNAL_SERVER, error?.name || http_status_code_1.httpStatusMessages.INTERNAL_SERVER, null, error));
+        return res.status(error?.status || http_status_code_1.HttpStatusCodes.INTERNAL_SERVER)
+            .json((0, http_response_1.response)(error?.status || http_status_code_1.HttpStatusCodes.INTERNAL_SERVER, error?.name || http_status_code_1.HttpStatusMessages.INTERNAL_SERVER, null, error));
     }
 };
 exports.default = {

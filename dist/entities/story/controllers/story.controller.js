@@ -4,16 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_code_1 = require("../../../shared/http-status-code");
+const global_exception_1 = require("../../../utils/global-exception");
 const http_response_1 = require("../../../utils/http-response");
 const story_service_1 = __importDefault(require("../services/story.service"));
 const addStory = async (req, res) => {
     try {
-        const data = await story_service_1.default.addStory(req.body, req.file);
-        return res.status(http_status_code_1.httpStatusCodes.CREATED).json((0, http_response_1.response)(http_status_code_1.httpStatusCodes.CREATED, http_status_code_1.httpStatusMessages.CREATED, data));
+        const data = await story_service_1.default.addStory(req.body, req.file, req.userEntity.id);
+        return res.status(http_status_code_1.HttpStatusCodes.CREATED)
+            .json((0, http_response_1.response)(http_status_code_1.HttpStatusCodes.CREATED, http_status_code_1.HttpStatusMessages.CREATED, data));
     }
     catch (error) {
-        return res.status(error?.status || http_status_code_1.httpStatusCodes.INTERNAL_SERVER)
-            .json((0, http_response_1.response)(error?.status || http_status_code_1.httpStatusCodes.INTERNAL_SERVER, error?.name || http_status_code_1.httpStatusMessages.INTERNAL_SERVER, null, error));
+        const errorRes = (0, global_exception_1.globalException)(error);
+        return res.status(errorRes.status).json((0, http_response_1.response)(errorRes.status, errorRes.message, null, errorRes));
     }
 };
 exports.default = {

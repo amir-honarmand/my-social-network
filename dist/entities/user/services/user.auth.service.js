@@ -22,7 +22,7 @@ const login = async (userDto) => {
     const user = await user_repository_1.UserRepository.findByEmail(userDto.email);
     const checkPassword = await (0, password_1.validatePass)(userDto.password, user.salt, user.password);
     if (!checkPassword)
-        throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.NOT_FOUND, http_status_code_1.httpStatusCodes.NOT_FOUND, `Email or password incorrect!`);
+        throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.NOT_FOUND, http_status_code_1.HttpStatusCodes.NOT_FOUND, `Email or password incorrect!`);
     const token = new jwt_1.Token((user.id), roles_enum_1.role.USER);
     const refreshToken = token.generateRefresh();
     const accessToken = token.generateAccess();

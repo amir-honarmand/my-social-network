@@ -8,9 +8,11 @@ import { editUserAvatarController, getUserAvatarController } from '../controller
 
 const userRouter: Router = express.Router();
 
+//! recaptcha middleware
 userRouter.route('/auth/register')
 .post(dtoValidator(UserRegisterDto), registerController)
 
+//! recaptcha middleware
 userRouter.route('/auth/login')
 .post(dtoValidator(UserLoginDto), loginController)
 

@@ -20,30 +20,22 @@ exports.UserRepository = (() => {
         });
     }
     async function registerUser(user) {
-        try {
-            await postgres_1.postgres.getRepository(user_model_1.User).insert({
-                first_name: user.first_name,
-                last_name: user.last_name,
-                user_name: user.user_name,
-                password: user.password,
-                salt: user.salt,
-                mobile: user.mobile,
-                email: user.email,
-                timezone: user.timezone,
-                favorites_id: user.favorites_id
-            });
-        }
-        catch (error) {
-            if (error?.driverError?.code === '23505') {
-                throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.CONFLICT, http_status_code_1.httpStatusCodes.CONFLICT, `user already exists!`);
-            }
-            ;
-        }
+        await postgres_1.postgres.getRepository(user_model_1.User).insert({
+            first_name: user.first_name,
+            last_name: user.last_name,
+            user_name: user.user_name,
+            password: user.password,
+            salt: user.salt,
+            mobile: user.mobile,
+            email: user.email,
+            timezone: user.timezone,
+            favorites_id: user.favorites_id
+        });
     }
     async function findByEmail(userEmail) {
         const findUser = await postgres_1.postgres.getRepository(user_model_1.User).findOneBy({ email: userEmail });
         if (!findUser) {
-            throw new error_handler_1.BaseError(http_status_code_1.httpStatusMessages.NOT_FOUND, http_status_code_1.httpStatusCodes.NOT_FOUND, `Email or password incorrect!!`);
+            throw new error_handler_1.BaseError(http_status_code_1.HttpStatusMessages.NOT_FOUND, http_status_code_1.HttpStatusCodes.NOT_FOUND, `Email or password incorrect!!`);
         }
         ;
         return findUser;

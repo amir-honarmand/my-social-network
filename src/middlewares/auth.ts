@@ -4,7 +4,7 @@ import { MoreThan } from "typeorm";
 import {postgres} from "../database/postgres";
 import { UserSession } from "../entities/user/models/user-session.model";
 import { User } from "../entities/user/models/user.model";
-import { httpStatusCodes, httpStatusMessages } from "../shared/http-status-code";
+import { HttpStatusCodes, HttpStatusMessages } from "../shared/http-status-code";
 import { role } from "../shared/roles.enum";
 import { BaseError } from "../utils/error-handler";
 import { response } from "../utils/http-response";
@@ -14,11 +14,11 @@ const userAuth = (userType: string, tokenType: string) => async (req: Request | 
 	try {
 		/* Check token existence */
 		let authorization: string | null = req?.headers?.authorization ?? null;
-		if (!authorization) throw new BaseError(httpStatusMessages.UNAUTHORIZED, httpStatusCodes.UNAUTHORIZED, httpStatusMessages.UNAUTHORIZED, true);
+		if (!authorization) throw new BaseError(HttpStatusMessages.UNAUTHORIZED, HttpStatusCodes.UNAUTHORIZED, HttpStatusMessages.UNAUTHORIZED, true);
 
 		const tokenArray: string[] | undefined = authorization?.split(" ");
 		if (!tokenArray || tokenArray[0] != "Bearer" || !tokenArray[1])
-        throw new BaseError(httpStatusMessages.UNAUTHORIZED, httpStatusCodes.UNAUTHORIZED, httpStatusMessages.UNAUTHORIZED, true);
+        throw new BaseError(HttpStatusMessages.UNAUTHORIZED, HttpStatusCodes.UNAUTHORIZED, HttpStatusMessages.UNAUTHORIZED, true);
 
 		let token: string = tokenArray[1];
 
@@ -29,11 +29,11 @@ const userAuth = (userType: string, tokenType: string) => async (req: Request | 
 			payload = jwtVerify(token, null, userType);
 
 			if (!payload?.id || userType !== payload.userType || tokenType !== payload.tokenType) {
-				throw new BaseError(httpStatusMessages.UNAUTHORIZED, httpStatusCodes.UNAUTHORIZED, httpStatusMessages.UNAUTHORIZED, true)
+				throw new BaseError(HttpStatusMessages.UNAUTHORIZED, HttpStatusCodes.UNAUTHORIZED, HttpStatusMessages.UNAUTHORIZED, true)
 			};
 		} catch (error: any) {
-			return res.status(error?.status || httpStatusCodes.INTERNAL_SERVER)
-			.json(response(error?.status || httpStatusCodes.INTERNAL_SERVER, error?.name || httpStatusMessages.INTERNAL_SERVER, null, error));
+			return res.status(error?.status || HttpStatusCodes.INTERNAL_SERVER)
+			.json(response(error?.status || HttpStatusCodes.INTERNAL_SERVER, error?.name || HttpStatusMessages.INTERNAL_SERVER, null, error));
 		};
 
 		let user: any = null;
@@ -44,10 +44,10 @@ const userAuth = (userType: string, tokenType: string) => async (req: Request | 
 		if (userType == role.USER) {
 			user = await postgres.getRepository(User).findOneBy({id: payload.id});
 			if(user.status === userStatus.BLOCK) {
-				throw new BaseError(httpStatusMessages.FORBIDDEN, httpStatusCodes.FORBIDDEN, 'You are blocked!', true)
+				throw new BaseError(HttpStatusMessages.FORBIDDEN, HttpStatusCodes.FORBIDDEN, 'You are blocked!', true)
 			};
 			if(user.status === userStatus.INACTIVE) {
-				throw new BaseError(httpStatusMessages.FORBIDDEN, httpStatusCodes.FORBIDDEN, 'You are inactive!', true)
+				throw new BaseError(HttpStatusMessages.FORBIDDEN, HttpStatusCodes.FORBIDDEN, 'You are inactive!', true)
 			};
 
 			sessionModel = postgres.getRepository(UserSession);
@@ -60,7 +60,7 @@ const userAuth = (userType: string, tokenType: string) => async (req: Request | 
 		// }
 
 		if (!user){
-			throw new BaseError(httpStatusMessages.UNAUTHORIZED, httpStatusCodes.UNAUTHORIZED, 'User not found, unauthorized!', true)
+			throw new BaseError(HttpStatusMessages.UNAUTHORIZED, HttpStatusCodes.UNAUTHORIZED, 'User not found, unauthorized!', true)
 		};
 
 		if (tokenType == "refresh"){
@@ -73,7 +73,7 @@ const userAuth = (userType: string, tokenType: string) => async (req: Request | 
 			});
 		}
 		if (!session){
-			throw new BaseError(httpStatusMessages.UNAUTHORIZED, httpStatusCodes.UNAUTHORIZED, httpStatusMessages.UNAUTHORIZED, true)
+			throw new BaseError(HttpStatusMessages.UNAUTHORIZED, HttpStatusCodes.UNAUTHORIZED, HttpStatusMessages.UNAUTHORIZED, true)
 		};
 
 		req.sessionEntity = session;
@@ -81,8 +81,8 @@ const userAuth = (userType: string, tokenType: string) => async (req: Request | 
 
 		next();
 	} catch (error: any) {
-		return res.status(error?.status || httpStatusCodes.INTERNAL_SERVER)
-        .json(response(error?.status || httpStatusCodes.INTERNAL_SERVER, error?.name || httpStatusMessages.INTERNAL_SERVER, null, error));
+		return res.status(error?.status || HttpStatusCodes.INTERNAL_SERVER)
+        .json(response(error?.status || HttpStatusCodes.INTERNAL_SERVER, error?.name || HttpStatusMessages.INTERNAL_SERVER, null, error));
 	}
 };
 

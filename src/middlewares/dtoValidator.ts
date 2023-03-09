@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import Joi from "joi";
-import { httpStatusCodes, httpStatusMessages } from "../shared/http-status-code";
+import { HttpStatusCodes, HttpStatusMessages } from "../shared/http-status-code";
 import { response } from "../utils/http-response";
 import { pick } from "../utils/pick";
 
@@ -16,7 +16,7 @@ export const dtoValidator = (schema: {}) => (req: Request, res: Response, next: 
 		for (const err of error.details) {
 			errorMessage += " [ " + err.path.join(" > ") + err.message.slice(err.message.lastIndexOf('"') + 1) + " ] ";
 		}
-        return res.status(httpStatusCodes.BAD_REQUEST).json(response(httpStatusCodes.BAD_REQUEST, httpStatusMessages.BAD_REQUEST, null, errorMessage));
+        return res.status(HttpStatusCodes.BAD_REQUEST).json(response(HttpStatusCodes.BAD_REQUEST, HttpStatusMessages.BAD_REQUEST, null, errorMessage));
 	}
 	Object.assign(req, value);
 	return next();

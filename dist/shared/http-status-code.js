@@ -1,30 +1,35 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.httpStatusMessages = exports.httpStatusCodes = void 0;
-var httpStatusCodes;
-(function (httpStatusCodes) {
-    httpStatusCodes[httpStatusCodes["OK"] = 200] = "OK";
-    httpStatusCodes[httpStatusCodes["CREATED"] = 201] = "CREATED";
-    httpStatusCodes[httpStatusCodes["BAD_REQUEST"] = 400] = "BAD_REQUEST";
-    httpStatusCodes[httpStatusCodes["NOT_FOUND"] = 404] = "NOT_FOUND";
-    httpStatusCodes[httpStatusCodes["INTERNAL_SERVER"] = 500] = "INTERNAL_SERVER";
-    httpStatusCodes[httpStatusCodes["UNAUTHORIZED"] = 401] = "UNAUTHORIZED";
-    httpStatusCodes[httpStatusCodes["FORBIDDEN"] = 403] = "FORBIDDEN";
-    httpStatusCodes[httpStatusCodes["CONFLICT"] = 409] = "CONFLICT";
-    httpStatusCodes[httpStatusCodes["UNPROCESSABLE_ENTITY"] = 422] = "UNPROCESSABLE_ENTITY";
-    httpStatusCodes[httpStatusCodes["SERVICE_UNAVAILABLE"] = 503] = "SERVICE_UNAVAILABLE";
-})(httpStatusCodes = exports.httpStatusCodes || (exports.httpStatusCodes = {}));
-var httpStatusMessages;
-(function (httpStatusMessages) {
-    httpStatusMessages["OK"] = "OK";
-    httpStatusMessages["CREATED"] = "CREATED";
-    httpStatusMessages["BAD_REQUEST"] = "BAD_REQUEST";
-    httpStatusMessages["NOT_FOUND"] = "NOT_FOUND";
-    httpStatusMessages["INTERNAL_SERVER"] = "INTERNAL_SERVER_ERROR";
-    httpStatusMessages["UNAUTHORIZED"] = "UNAUTHORIZED";
-    httpStatusMessages["FORBIDDEN"] = "FORBIDDEN";
-    httpStatusMessages["CONFLICT"] = "CONFLICT";
-    httpStatusMessages["UNPROCESSABLE_ENTITY"] = "UNPROCESSABLE_ENTITY";
-    httpStatusMessages["SERVICE_UNAVAILABLE"] = "SERVICE_UNAVAILABLE";
-})(httpStatusMessages = exports.httpStatusMessages || (exports.httpStatusMessages = {}));
+exports.DatabaseErrorCodes = exports.HttpStatusMessages = exports.HttpStatusCodes = void 0;
+var HttpStatusCodes;
+(function (HttpStatusCodes) {
+    HttpStatusCodes[HttpStatusCodes["OK"] = 200] = "OK";
+    HttpStatusCodes[HttpStatusCodes["CREATED"] = 201] = "CREATED";
+    HttpStatusCodes[HttpStatusCodes["BAD_REQUEST"] = 400] = "BAD_REQUEST";
+    HttpStatusCodes[HttpStatusCodes["NOT_FOUND"] = 404] = "NOT_FOUND";
+    HttpStatusCodes[HttpStatusCodes["INTERNAL_SERVER"] = 500] = "INTERNAL_SERVER";
+    HttpStatusCodes[HttpStatusCodes["UNAUTHORIZED"] = 401] = "UNAUTHORIZED";
+    HttpStatusCodes[HttpStatusCodes["FORBIDDEN"] = 403] = "FORBIDDEN";
+    HttpStatusCodes[HttpStatusCodes["CONFLICT"] = 409] = "CONFLICT";
+    HttpStatusCodes[HttpStatusCodes["UNPROCESSABLE_ENTITY"] = 422] = "UNPROCESSABLE_ENTITY";
+    HttpStatusCodes[HttpStatusCodes["SERVICE_UNAVAILABLE"] = 503] = "SERVICE_UNAVAILABLE";
+})(HttpStatusCodes = exports.HttpStatusCodes || (exports.HttpStatusCodes = {}));
+var HttpStatusMessages;
+(function (HttpStatusMessages) {
+    HttpStatusMessages["OK"] = "OK";
+    HttpStatusMessages["CREATED"] = "CREATED";
+    HttpStatusMessages["BAD_REQUEST"] = "BAD_REQUEST";
+    HttpStatusMessages["NOT_FOUND"] = "NOT_FOUND";
+    HttpStatusMessages["INTERNAL_SERVER"] = "INTERNAL_SERVER_ERROR";
+    HttpStatusMessages["UNAUTHORIZED"] = "UNAUTHORIZED";
+    HttpStatusMessages["FORBIDDEN"] = "FORBIDDEN";
+    HttpStatusMessages["CONFLICT"] = "CONFLICT";
+    HttpStatusMessages["UNPROCESSABLE_ENTITY"] = "UNPROCESSABLE_ENTITY";
+    HttpStatusMessages["SERVICE_UNAVAILABLE"] = "SERVICE_UNAVAILABLE";
+})(HttpStatusMessages = exports.HttpStatusMessages || (exports.HttpStatusMessages = {}));
+var DatabaseErrorCodes;
+(function (DatabaseErrorCodes) {
+    DatabaseErrorCodes["not_null_violation"] = "23502";
+    DatabaseErrorCodes["unique_violation"] = "23505";
+})(DatabaseErrorCodes = exports.DatabaseErrorCodes || (exports.DatabaseErrorCodes = {}));
 //# sourceMappingURL=http-status-code.js.map

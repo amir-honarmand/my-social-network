@@ -15,7 +15,7 @@ export class Story {
     @Column('varchar', {length: 500, nullable: true})
     content_url: string
     
-    @Column('enum', {enum: StoryStatus, default: StoryStatus.PUBLISHING})
+    @Column('enum', {enum: StoryStatus, default: StoryStatus.PUBLISHED})
     status: StoryStatus
 
     @ManyToOne(()=> Storyboard, {nullable: false})
