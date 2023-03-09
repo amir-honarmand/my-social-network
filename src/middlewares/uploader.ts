@@ -1,5 +1,6 @@
 import { Request } from "express";
 import multer from "multer";
+import { nanoid } from 'nanoid/async';
 
 const multerStorageConfig = (mainDirectory: string) => {
     return multer.diskStorage({
@@ -7,6 +8,11 @@ const multerStorageConfig = (mainDirectory: string) => {
             const fileType: string = file.mimetype.split('/')[0];
             const finalPath: string = `uploads/${mainDirectory}/${fileType}`;
             callback(null, finalPath);
+        },
+        async filename(req, file, callback) {
+            const generateName: string = await nanoid();
+            const fileName: string = `${generateName}.${file.mimetype.split('/')[1]}`
+            callback(null, fileName)
         },
     });
 }
@@ -20,6 +26,7 @@ const isAllowedMimetype = (mime: any) => {
         "image/x-ms-bmp",
         "image/webp",
         "audio/aac",
+        "audio/mpeg",
         "video/mp4",
         "application/pdf",
     ].includes(mime.toString());

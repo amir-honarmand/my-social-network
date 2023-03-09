@@ -8,7 +8,7 @@ const http_response_1 = require("../../../utils/http-response");
 const story_service_1 = __importDefault(require("../services/story.service"));
 const addStory = async (req, res) => {
     try {
-        const data = await story_service_1.default.addStory(req.body);
+        const data = await story_service_1.default.addStory(req.body, req.file);
         return res.status(http_status_code_1.httpStatusCodes.CREATED).json((0, http_response_1.response)(http_status_code_1.httpStatusCodes.CREATED, http_status_code_1.httpStatusMessages.CREATED, data));
     }
     catch (error) {

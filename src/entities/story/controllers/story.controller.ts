@@ -5,7 +5,7 @@ import storyService from "../services/story.service";
 
 const addStory = async (req: Request | any, res: Response) => {
     try {
-        const data: any = await storyService.addStory(req.body);
+        const data: any = await storyService.addStory(req.body, req.file);
         return res.status(httpStatusCodes.CREATED).json(response(httpStatusCodes.CREATED, httpStatusMessages.CREATED, data));
     } catch (error: any) {
         return res.status(error?.status || httpStatusCodes.INTERNAL_SERVER)
