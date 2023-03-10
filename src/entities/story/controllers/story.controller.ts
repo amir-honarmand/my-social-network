@@ -37,8 +37,20 @@ const getAllStory = async (req: Request | any, res: Response) => {
     }
 }
 
+const editStory = async (req: Request | any, res: Response) => {
+    try {
+        const data: any = await storyService.editStory(req.body, req.userEntity.id);
+        return res.status(HttpStatusCodes.OK)
+        .json(response(HttpStatusCodes.OK, HttpStatusMessages.OK, data));
+    } catch (error: any) {
+        const errorRes: GlobalExceptionType = globalException(error);
+        return res.status(errorRes.status).json(response(errorRes.status, errorRes.message, null, errorRes));
+    }
+}
+
 export default {
     addStory,
     getStory,
     getAllStory,
+    editStory,
 }

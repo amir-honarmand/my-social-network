@@ -26,9 +26,14 @@ const getAllStory = async (getAllStoryDto) => {
         rows: story[0],
     };
 };
+const editStory = async (editStoryDto, userId) => {
+    await story_repository_1.storyRepository.editStory(editStoryDto, userId);
+    return true;
+};
 exports.default = {
     addStory,
     getStory,
     getAllStory,
+    editStory,
 };
 //# sourceMappingURL=story.service.js.map

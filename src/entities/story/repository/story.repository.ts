@@ -3,6 +3,7 @@ import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status
 import { BaseError } from "../../../utils/error-handler";
 import { pagination } from "../../../utils/pagination";
 import { AddStoryDto } from "../dto/add-story.dto";
+import { EditStoryDto } from "../dto/edit-story.dto";
 import { GetAllStoryDto } from "../dto/get-all-story.dto";
 import { GetStoryDto } from "../dto/get-story.dto";
 import { Story } from "../models/story.model";
@@ -17,6 +18,7 @@ export const storyRepository = (() => {
             story_details_id: addStoryDto.story_details_id,
             storyboard_id: addStoryDto.storyboard_id,
             user_id: addStoryDto.user_id,
+            // status: addStoryDto.status
         });
     }
 
@@ -37,16 +39,16 @@ export const storyRepository = (() => {
             }
         });
 
-        if(!story){
+        if (!story) {
             throw new BaseError(HttpStatusMessages.NOT_FOUND, HttpStatusCodes.NOT_FOUND, '')
         };
-        
+
         return story;
     }
 
     async function getAllStory(getAllStoryDto: GetAllStoryDto): Promise<[Story[], number]> {
         const skip: number = pagination(getAllStoryDto.page, getAllStoryDto.limit);
-        
+
         const stories = await postgres.getRepository(Story).findAndCount({
             where: {},
             skip,
@@ -62,13 +64,34 @@ export const storyRepository = (() => {
                 updatedAt: true
             }
         });
-        
+
         return stories;
+    }
+
+    async function editStory(editStoryDto: EditStoryDto, userId: number): Promise<void> {
+        const story = await postgres.getRepository(Story).update(
+            { id: editStoryDto.id, user_id: userId },
+            {
+                caption: editStoryDto.caption,
+                tags_id: editStoryDto.tags_id,
+                favorites_id: editStoryDto.favorites_id,
+                status: editStoryDto.status
+            }
+        );
+
+        if (!story.affected) {
+            throw new BaseError(
+                HttpStatusMessages.UNPROCESSABLE_ENTITY,
+                HttpStatusCodes.UNPROCESSABLE_ENTITY,
+                HttpStatusMessages.UPDATE_FAILED
+            )
+        }
     }
 
     return {
         addStory,
         getStory,
-        getAllStory
+        getAllStory,
+        editStory,
     };
 })();

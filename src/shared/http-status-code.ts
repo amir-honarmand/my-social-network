@@ -22,9 +22,11 @@ export enum HttpStatusMessages {
     CONFLICT = 'CONFLICT',
     UNPROCESSABLE_ENTITY = 'UNPROCESSABLE_ENTITY',
     SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+    UPDATE_FAILED = 'UPDATE_FAILED',
 }
 
 export enum DatabaseErrorCodes {
     not_null_violation = '23502',
     unique_violation = '23505',
+    invalid_input_value_for_enum = '22P02',
 }

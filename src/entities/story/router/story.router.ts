@@ -6,6 +6,7 @@ import { AddStoryDto } from '../dto/add-story.dto';
 import uploader from '../../../middlewares/uploader';
 import { GetStoryDto } from '../dto/get-story.dto';
 import { GetAllStoryDto } from '../dto/get-all-story.dto';
+import { EditStoryDto } from '../dto/edit-story.dto';
 
 const storyRouter: Router = express.Router();
 
@@ -16,12 +17,17 @@ storyRouter.route('/op')
         dtoValidator(AddStoryDto),
         storyController.addStory
     )
+    .put(
+        authMiddleware.userAuthMiddleware,
+        dtoValidator(EditStoryDto),
+        storyController.editStory
+    )
     .get(
         authMiddleware.userAuthMiddleware,
         dtoValidator(GetAllStoryDto),
         storyController.getAllStory
     )
-
+    
 storyRouter.route('/op/:storyId')
     .get(
         authMiddleware.userAuthMiddleware,

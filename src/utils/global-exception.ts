@@ -33,6 +33,17 @@ export const globalException = (error: any) => {
         code = +error?.code;
         message = msg;
 
+    } else if (error?.code === DatabaseErrorCodes.invalid_input_value_for_enum) {
+        /* 
+        *   invalid input value for "enum" error handling
+        */
+
+        const msg: string = `invalid input value for 'enum'`
+
+        status = error?.status || HttpStatusCodes.INTERNAL_SERVER;
+        code = +error?.code;
+        message = msg;
+
     } else {
         status = error?.status || HttpStatusCodes.INTERNAL_SERVER;
         message = error?.message || error?.name || HttpStatusMessages.INTERNAL_SERVER;

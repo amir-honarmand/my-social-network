@@ -26,10 +26,12 @@ var HttpStatusMessages;
     HttpStatusMessages["CONFLICT"] = "CONFLICT";
     HttpStatusMessages["UNPROCESSABLE_ENTITY"] = "UNPROCESSABLE_ENTITY";
     HttpStatusMessages["SERVICE_UNAVAILABLE"] = "SERVICE_UNAVAILABLE";
+    HttpStatusMessages["UPDATE_FAILED"] = "UPDATE_FAILED";
 })(HttpStatusMessages = exports.HttpStatusMessages || (exports.HttpStatusMessages = {}));
 var DatabaseErrorCodes;
 (function (DatabaseErrorCodes) {
     DatabaseErrorCodes["not_null_violation"] = "23502";
     DatabaseErrorCodes["unique_violation"] = "23505";
+    DatabaseErrorCodes["invalid_input_value_for_enum"] = "22P02";
 })(DatabaseErrorCodes = exports.DatabaseErrorCodes || (exports.DatabaseErrorCodes = {}));
 //# sourceMappingURL=http-status-code.js.map
