@@ -23,6 +23,8 @@ const getAllStory = async (getAllStoryDto) => {
     const story = await story_repository_1.storyRepository.getAllStory(getAllStoryDto);
     return {
         count: story[1],
+        page: getAllStoryDto.page,
+        limit: getAllStoryDto.limit,
         rows: story[0],
     };
 };

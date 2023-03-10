@@ -14,6 +14,6 @@ export class Favorite {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @DeleteDateColumn()
+    @DeleteDateColumn({select: false})
     deletedAt: Date
 }

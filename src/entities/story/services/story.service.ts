@@ -35,6 +35,8 @@ const getAllStory = async (getAllStoryDto: GetAllStoryDto): Promise<object | Bas
     const story = await storyRepository.getAllStory(getAllStoryDto);
     return {
         count: story[1],
+        page: getAllStoryDto.page,
+        limit: getAllStoryDto.limit,
         rows: story[0],
     };
 }

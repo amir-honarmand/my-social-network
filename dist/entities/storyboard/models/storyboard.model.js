@@ -26,7 +26,7 @@ __decorate([
     __metadata("design:type", Date)
 ], Storyboard.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.DeleteDateColumn)(),
+    (0, typeorm_1.DeleteDateColumn)({ select: false }),
     __metadata("design:type", Date)
 ], Storyboard.prototype, "deletedAt", void 0);
 Storyboard = __decorate([

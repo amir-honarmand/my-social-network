@@ -1,12 +1,15 @@
 import { postgres } from "../../../database/postgres";
 import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
 import { BaseError } from "../../../utils/error-handler";
+import { excludeColumns } from "../../../utils/exclude-columns";
 import { pagination } from "../../../utils/pagination";
+import { User } from "../../user/models/user.model";
 import { AddStoryDto } from "../dto/add-story.dto";
 import { DeleteStoryDto } from "../dto/delete-story.dto";
 import { EditStoryDto } from "../dto/edit-story.dto";
 import { GetAllStoryDto } from "../dto/get-all-story.dto";
 import { GetStoryDto } from "../dto/get-story.dto";
+import { StoryStatus } from "../enums/story-status.enum";
 import { Story } from "../models/story.model";
 
 export const storyRepository = (() => {
@@ -26,17 +29,17 @@ export const storyRepository = (() => {
     async function getStory(getStoryDto: GetStoryDto): Promise<Story> {
         const story = await postgres.getRepository(Story).findOne({
             where: {
-                id: +getStoryDto.storyId
+                id: +getStoryDto.storyId,
+                status: StoryStatus.PUBLISHED
             },
             select: {
-                id: true,
-                caption: true,
-                content_url: true,
-                status: true,
-                favorites_id: true,
-                tags_id: true,
-                createdAt: true,
-                updatedAt: true
+                user_id: {id: true, avatar: true, user_name: true},
+                story_details_id: {id: true, share_number: true, view_number: true},
+            },
+            relations: {
+                story_details_id: true,
+                storyboard_id: true,
+                user_id: true
             }
         });
 
@@ -51,18 +54,18 @@ export const storyRepository = (() => {
         const skip: number = pagination(getAllStoryDto.page, getAllStoryDto.limit);
 
         const stories = await postgres.getRepository(Story).findAndCount({
-            where: {},
+            where: {status: StoryStatus.PUBLISHED},
+            order: {createdAt: 'DESC'},
             skip,
             take: getAllStoryDto.limit,
             select: {
-                id: true,
-                caption: true,
-                content_url: true,
-                status: true,
-                favorites_id: true,
-                tags_id: true,
-                createdAt: true,
-                updatedAt: true
+                user_id: {id: true, avatar: true, user_name: true},
+                story_details_id: {id: true, share_number: true, view_number: true},
+            },
+            relations: {
+                story_details_id: true,
+                storyboard_id: true,
+                user_id: true
             }
         });
 

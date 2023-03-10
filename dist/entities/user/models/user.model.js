@@ -28,7 +28,7 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "last_name", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { length: 30, nullable: false }),
+    (0, typeorm_1.Column)('varchar', { length: 30, unique: true, nullable: false }),
     __metadata("design:type", String)
 ], User.prototype, "user_name", void 0);
 __decorate([
@@ -76,7 +76,7 @@ __decorate([
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.DeleteDateColumn)(),
+    (0, typeorm_1.DeleteDateColumn)({ select: false }),
     __metadata("design:type", Date)
 ], User.prototype, "deletedAt", void 0);
 User = __decorate([

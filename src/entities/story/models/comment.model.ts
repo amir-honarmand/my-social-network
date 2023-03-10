@@ -24,6 +24,6 @@ export class Comment {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @DeleteDateColumn()
+    @DeleteDateColumn({select: false})
     deletedAt: Date
 }

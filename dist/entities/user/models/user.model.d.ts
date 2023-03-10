@@ -10,7 +10,7 @@ export declare class User {
     mobile: string;
     email: string;
     status: userStatus;
-    avatar: object;
+    avatar: any;
     timezone: string;
     favorites_id: object;
     stories: Story[];

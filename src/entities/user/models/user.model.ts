@@ -13,7 +13,7 @@ export class User {
     @Column('varchar', {length: 30, nullable: false})
     last_name: string
 
-    @Column('varchar', {length: 30, nullable: false})
+    @Column('varchar', {length: 30, unique: true, nullable: false})
     user_name: string
 
     @Column('varchar', {length: 64, nullable: false})
@@ -32,7 +32,7 @@ export class User {
     status: userStatus
 
     @Column('jsonb', {nullable: true})
-    avatar: object
+    avatar: any
 
     @Column('varchar', {nullable: true, length: 200})
     timezone: string
@@ -49,6 +49,6 @@ export class User {
     @UpdateDateColumn()
     updatedAt: Date
 
-    @DeleteDateColumn()
+    @DeleteDateColumn({select: false})
     deletedAt: Date
 }
