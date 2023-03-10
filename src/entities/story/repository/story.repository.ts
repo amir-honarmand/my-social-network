@@ -3,6 +3,7 @@ import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status
 import { BaseError } from "../../../utils/error-handler";
 import { pagination } from "../../../utils/pagination";
 import { AddStoryDto } from "../dto/add-story.dto";
+import { DeleteStoryDto } from "../dto/delete-story.dto";
 import { EditStoryDto } from "../dto/edit-story.dto";
 import { GetAllStoryDto } from "../dto/get-all-story.dto";
 import { GetStoryDto } from "../dto/get-story.dto";
@@ -88,10 +89,25 @@ export const storyRepository = (() => {
         }
     }
 
+    async function deleteStory(deleteStoryDto: DeleteStoryDto, userId: number): Promise<void> {
+        const story = await postgres.getRepository(Story).softDelete({
+            id: deleteStoryDto.storyId, user_id: userId
+        });
+
+        if (!story.affected) {
+            throw new BaseError(
+                HttpStatusMessages.UNPROCESSABLE_ENTITY,
+                HttpStatusCodes.UNPROCESSABLE_ENTITY,
+                HttpStatusMessages.DELETE_FAILED
+            )
+        }
+    }
+
     return {
         addStory,
         getStory,
         getAllStory,
         editStory,
+        deleteStory,
     };
 })();

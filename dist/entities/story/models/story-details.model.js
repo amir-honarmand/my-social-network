@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.StoryDetails = void 0;
 const typeorm_1 = require("typeorm");
+const story_model_1 = require("./story.model");
 let StoryDetails = class StoryDetails {
 };
 __decorate([
@@ -25,6 +26,11 @@ __decorate([
     (0, typeorm_1.Column)('varchar', { length: 200, default: '0' }),
     __metadata("design:type", String)
 ], StoryDetails.prototype, "share_number", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => story_model_1.Story, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.JoinColumn)({ name: 'story_id' }),
+    __metadata("design:type", Object)
+], StoryDetails.prototype, "story_id", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

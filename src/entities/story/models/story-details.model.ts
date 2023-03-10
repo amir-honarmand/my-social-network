@@ -1,6 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
-import { Storyboard } from "../../storyboard/models/storyboard.model"
-import { User } from "../../user/models/user.model"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToOne, JoinColumn } from "typeorm"
+import { Story } from "./story.model"
 
 @Entity()
 export class StoryDetails {
@@ -12,6 +11,10 @@ export class StoryDetails {
     
     @Column('varchar', {length: 200, default: '0'})
     share_number: string
+
+    @OneToOne(()=> Story, {onDelete: 'CASCADE'})
+    @JoinColumn({name: 'story_id'})
+    story_id: Story | number
 
     @CreateDateColumn()
     createdAt: Date

@@ -1,3 +1,4 @@
+import { Story } from "../../story/models/story.model";
 import { userStatus } from "../enums/user-status.enum";
 export declare class User {
     id: number;
@@ -12,6 +13,7 @@ export declare class User {
     avatar: object;
     timezone: string;
     favorites_id: object;
+    stories: Story[];
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;

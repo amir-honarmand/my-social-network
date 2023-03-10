@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
+const story_model_1 = require("../../story/models/story.model");
 const user_status_enum_1 = require("../enums/user-status.enum");
 let User = class User {
 };
@@ -62,6 +63,10 @@ __decorate([
     (0, typeorm_1.Column)('jsonb', { nullable: false }),
     __metadata("design:type", Object)
 ], User.prototype, "favorites_id", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => story_model_1.Story, (story) => story.user_id),
+    __metadata("design:type", Array)
+], User.prototype, "stories", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

@@ -44,7 +44,7 @@ __decorate([
     __metadata("design:type", Object)
 ], Story.prototype, "user_id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => story_details_model_1.StoryDetails, { nullable: false }),
+    (0, typeorm_1.OneToOne)(() => story_details_model_1.StoryDetails, { nullable: false, onDelete: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)({ name: 'story_details_id' }),
     __metadata("design:type", Object)
 ], Story.prototype, "story_details_id", void 0);

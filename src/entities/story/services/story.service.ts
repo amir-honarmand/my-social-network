@@ -4,6 +4,7 @@ import { createFileUploadedUrl } from "../../../utils/create-file-uploaded-url";
 import { BaseError } from "../../../utils/error-handler";
 import { storyboardRepository } from "../../storyboard/repository/storyboard.repository";
 import { AddStoryDto } from "../dto/add-story.dto";
+import { DeleteStoryDto } from "../dto/delete-story.dto";
 import { EditStoryDto } from "../dto/edit-story.dto";
 import { GetAllStoryDto } from "../dto/get-all-story.dto";
 import { GetStoryDto } from "../dto/get-story.dto";
@@ -38,9 +39,14 @@ const getAllStory = async (getAllStoryDto: GetAllStoryDto): Promise<object | Bas
     };
 }
 
-
 const editStory = async (editStoryDto: EditStoryDto, userId: number): Promise<boolean | BaseError> => {
     await storyRepository.editStory(editStoryDto, userId);
+    return true;
+}
+
+const deleteStory = async (deleteStoryDto: DeleteStoryDto, userId: number): Promise<boolean | BaseError> => {
+    await storyRepository.deleteStory(deleteStoryDto, userId);
+    await storyDetailsRepository.deleteStoryDetailsByStoryId(deleteStoryDto.storyId);
     return true;
 }
 
@@ -49,4 +55,5 @@ export default {
     getStory,
     getAllStory,
     editStory,
+    deleteStory,
 }

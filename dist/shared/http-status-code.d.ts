@@ -21,7 +21,8 @@ export declare enum HttpStatusMessages {
     CONFLICT = "CONFLICT",
     UNPROCESSABLE_ENTITY = "UNPROCESSABLE_ENTITY",
     SERVICE_UNAVAILABLE = "SERVICE_UNAVAILABLE",
-    UPDATE_FAILED = "UPDATE_FAILED"
+    UPDATE_FAILED = "UPDATE_FAILED",
+    DELETE_FAILED = "DELETE_FAILED"
 }
 export declare enum DatabaseErrorCodes {
     not_null_violation = "23502",

@@ -27,6 +27,7 @@ var HttpStatusMessages;
     HttpStatusMessages["UNPROCESSABLE_ENTITY"] = "UNPROCESSABLE_ENTITY";
     HttpStatusMessages["SERVICE_UNAVAILABLE"] = "SERVICE_UNAVAILABLE";
     HttpStatusMessages["UPDATE_FAILED"] = "UPDATE_FAILED";
+    HttpStatusMessages["DELETE_FAILED"] = "DELETE_FAILED";
 })(HttpStatusMessages = exports.HttpStatusMessages || (exports.HttpStatusMessages = {}));
 var DatabaseErrorCodes;
 (function (DatabaseErrorCodes) {

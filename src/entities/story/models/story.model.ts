@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, JoinColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, JoinColumn, OneToOne } from "typeorm"
 import { Storyboard } from "../../storyboard/models/storyboard.model"
 import { User } from "../../user/models/user.model"
 import { StoryStatus } from "../enums/story-status.enum"
@@ -26,7 +26,7 @@ export class Story {
     @JoinColumn({name: 'user_id'})
     user_id: User | number
 
-    @ManyToOne(()=> StoryDetails, {nullable: false})
+    @OneToOne(()=> StoryDetails, {nullable: false, onDelete: 'CASCADE'})
     @JoinColumn({name: 'story_details_id'})
     story_details_id: StoryDetails | number
 

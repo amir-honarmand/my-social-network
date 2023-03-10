@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany } from "typeorm"
+import { Story } from "../../story/models/story.model"
 import { userStatus } from "../enums/user-status.enum"
 
 @Entity()
@@ -38,6 +39,9 @@ export class User {
 
     @Column('jsonb', {nullable: false})
     favorites_id: object
+
+    @OneToMany(()=> Story, (story)=>story.user_id)
+    stories: Story[]
 
     @CreateDateColumn()
     createdAt: Date

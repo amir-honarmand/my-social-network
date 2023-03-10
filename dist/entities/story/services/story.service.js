@@ -30,10 +30,16 @@ const editStory = async (editStoryDto, userId) => {
     await story_repository_1.storyRepository.editStory(editStoryDto, userId);
     return true;
 };
+const deleteStory = async (deleteStoryDto, userId) => {
+    await story_repository_1.storyRepository.deleteStory(deleteStoryDto, userId);
+    await story_details_repository_1.storyDetailsRepository.deleteStoryDetailsByStoryId(deleteStoryDto.storyId);
+    return true;
+};
 exports.default = {
     addStory,
     getStory,
     getAllStory,
     editStory,
+    deleteStory,
 };
 //# sourceMappingURL=story.service.js.map

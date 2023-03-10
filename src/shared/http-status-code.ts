@@ -23,6 +23,7 @@ export enum HttpStatusMessages {
     UNPROCESSABLE_ENTITY = 'UNPROCESSABLE_ENTITY',
     SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
     UPDATE_FAILED = 'UPDATE_FAILED',
+    DELETE_FAILED = 'DELETE_FAILED',
 }
 
 export enum DatabaseErrorCodes {
