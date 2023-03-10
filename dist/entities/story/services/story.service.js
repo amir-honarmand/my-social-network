@@ -19,8 +19,16 @@ const getStory = async (getStoryDto) => {
     const story = await story_repository_1.storyRepository.getStory(getStoryDto);
     return story;
 };
+const getAllStory = async (getAllStoryDto) => {
+    const story = await story_repository_1.storyRepository.getAllStory(getAllStoryDto);
+    return {
+        count: story[1],
+        rows: story[0],
+    };
+};
 exports.default = {
     addStory,
-    getStory
+    getStory,
+    getAllStory,
 };
 //# sourceMappingURL=story.service.js.map

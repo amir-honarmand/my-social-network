@@ -1,7 +1,9 @@
 import { postgres } from "../../../database/postgres";
 import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
 import { BaseError } from "../../../utils/error-handler";
+import { pagination } from "../../../utils/pagination";
 import { AddStoryDto } from "../dto/add-story.dto";
+import { GetAllStoryDto } from "../dto/get-all-story.dto";
 import { GetStoryDto } from "../dto/get-story.dto";
 import { Story } from "../models/story.model";
 
@@ -42,8 +44,31 @@ export const storyRepository = (() => {
         return story;
     }
 
+    async function getAllStory(getAllStoryDto: GetAllStoryDto): Promise<[Story[], number]> {
+        const skip: number = pagination(getAllStoryDto.page, getAllStoryDto.limit);
+        
+        const stories = await postgres.getRepository(Story).findAndCount({
+            where: {},
+            skip,
+            take: getAllStoryDto.limit,
+            select: {
+                id: true,
+                caption: true,
+                content_url: true,
+                status: true,
+                favorites_id: true,
+                tags_id: true,
+                createdAt: true,
+                updatedAt: true
+            }
+        });
+        
+        return stories;
+    }
+
     return {
         addStory,
-        getStory
+        getStory,
+        getAllStory
     };
 })();

@@ -4,6 +4,7 @@ import { createFileUploadedUrl } from "../../../utils/create-file-uploaded-url";
 import { BaseError } from "../../../utils/error-handler";
 import { storyboardRepository } from "../../storyboard/repository/storyboard.repository";
 import { AddStoryDto } from "../dto/add-story.dto";
+import { GetAllStoryDto } from "../dto/get-all-story.dto";
 import { GetStoryDto } from "../dto/get-story.dto";
 import { storyDetailsRepository } from "../repository/story-details.repository";
 import { storyRepository } from "../repository/story.repository";
@@ -28,7 +29,16 @@ const getStory = async (getStoryDto: GetStoryDto): Promise<object | BaseError> =
     return story;
 }
 
+const getAllStory = async (getAllStoryDto: GetAllStoryDto): Promise<object | BaseError> => {   
+    const story = await storyRepository.getAllStory(getAllStoryDto);
+    return {
+        count: story[1],
+        rows: story[0],
+    };
+}
+
 export default {
     addStory,
-    getStory
+    getStory,
+    getAllStory,
 }

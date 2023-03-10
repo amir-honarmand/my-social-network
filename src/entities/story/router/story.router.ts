@@ -5,6 +5,7 @@ import storyController from '../controllers/story.controller';
 import { AddStoryDto } from '../dto/add-story.dto';
 import uploader from '../../../middlewares/uploader';
 import { GetStoryDto } from '../dto/get-story.dto';
+import { GetAllStoryDto } from '../dto/get-all-story.dto';
 
 const storyRouter: Router = express.Router();
 
@@ -14,6 +15,11 @@ storyRouter.route('/op')
         uploader.storyFileUpload.single('content-file'),
         dtoValidator(AddStoryDto),
         storyController.addStory
+    )
+    .get(
+        authMiddleware.userAuthMiddleware,
+        dtoValidator(GetAllStoryDto),
+        storyController.getAllStory
     )
 
 storyRouter.route('/op/:storyId')
