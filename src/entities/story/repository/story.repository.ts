@@ -31,7 +31,7 @@ export const storyRepository = (() => {
             },
             select: {
                 user_id: {id: true, avatar: true, user_name: true},
-                story_details_id: {id: true, share_number: true, view_number: true},
+                story_details_id: {id: true, share_count: true, view_count: true, comment_count: true, like_count: true},
             },
             relations: {
                 story_details_id: true,
@@ -56,7 +56,7 @@ export const storyRepository = (() => {
             take: getAllStoryDto.limit,
             select: {
                 user_id: {id: true, avatar: true, user_name: true},
-                story_details_id: {id: true, share_number: true, view_number: true},
+                story_details_id: {id: true, share_count: true, view_count: true, comment_count: true, like_count: true},
             },
             relations: {
                 story_details_id: true,

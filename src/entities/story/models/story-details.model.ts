@@ -6,11 +6,17 @@ export class StoryDetails {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column('varchar', {length: 200, default: '0'})
-    view_number: string
+    @Column('int4', {default: 0})
+    view_count: number
+
+    @Column('int4', {default: 0})
+    like_count: number
+
+    @Column('int4', {default: 0})
+    comment_count: number
     
-    @Column('varchar', {length: 200, default: '0'})
-    share_number: string
+    @Column('int4', {default: 0})
+    share_count: number
 
     @OneToOne(()=> Story, {onDelete: 'CASCADE'})
     @JoinColumn({name: 'story_id'})

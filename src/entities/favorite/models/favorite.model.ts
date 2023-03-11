@@ -12,6 +12,9 @@ export class Favorite {
     @Column('enum', {enum: FavoriteStatus, default: FavoriteStatus.ACTIVE})
     status: FavoriteStatus
 
+    @Column('int4', {default: 0})
+    used_count: number
+
     @CreateDateColumn()
     createdAt: Date
 

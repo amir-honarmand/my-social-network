@@ -19,13 +19,21 @@ __decorate([
     __metadata("design:type", Number)
 ], StoryDetails.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { length: 200, default: '0' }),
-    __metadata("design:type", String)
-], StoryDetails.prototype, "view_number", void 0);
+    (0, typeorm_1.Column)('int4', { default: 0 }),
+    __metadata("design:type", Number)
+], StoryDetails.prototype, "view_count", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { length: 200, default: '0' }),
-    __metadata("design:type", String)
-], StoryDetails.prototype, "share_number", void 0);
+    (0, typeorm_1.Column)('int4', { default: 0 }),
+    __metadata("design:type", Number)
+], StoryDetails.prototype, "like_count", void 0);
+__decorate([
+    (0, typeorm_1.Column)('int4', { default: 0 }),
+    __metadata("design:type", Number)
+], StoryDetails.prototype, "comment_count", void 0);
+__decorate([
+    (0, typeorm_1.Column)('int4', { default: 0 }),
+    __metadata("design:type", Number)
+], StoryDetails.prototype, "share_count", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => story_model_1.Story, { onDelete: 'CASCADE' }),
     (0, typeorm_1.JoinColumn)({ name: 'story_id' }),

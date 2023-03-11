@@ -27,6 +27,10 @@ __decorate([
     __metadata("design:type", String)
 ], Favorite.prototype, "status", void 0);
 __decorate([
+    (0, typeorm_1.Column)('int4', { default: 0 }),
+    __metadata("design:type", Number)
+], Favorite.prototype, "used_count", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Favorite.prototype, "createdAt", void 0);
