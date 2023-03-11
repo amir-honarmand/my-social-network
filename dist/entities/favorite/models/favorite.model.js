@@ -11,6 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Favorite = void 0;
 const typeorm_1 = require("typeorm");
+const favorite_status_enum_1 = require("../enums/favorite-status.enum");
 let Favorite = class Favorite {
 };
 __decorate([
@@ -18,9 +19,13 @@ __decorate([
     __metadata("design:type", Number)
 ], Favorite.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)('varchar', { nullable: false, length: 50 }),
+    (0, typeorm_1.Column)('varchar', { nullable: false, length: 30 }),
     __metadata("design:type", String)
 ], Favorite.prototype, "title", void 0);
+__decorate([
+    (0, typeorm_1.Column)('enum', { enum: favorite_status_enum_1.FavoriteStatus, default: favorite_status_enum_1.FavoriteStatus.ACTIVE }),
+    __metadata("design:type", String)
+], Favorite.prototype, "status", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
