@@ -14,7 +14,6 @@ export interface AddStoryDto {
     caption: string;
     content_url: string;
     status: StoryStatus;
-    storyboard_id: number;
     user_id: number;
     story_details_id: number;
     favorites_id: number[];

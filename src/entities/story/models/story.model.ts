@@ -18,9 +18,9 @@ export class Story {
     @Column('enum', {enum: StoryStatus, default: StoryStatus.PUBLISHED})
     status: StoryStatus
 
-    @ManyToOne(()=> Storyboard, {nullable: false})
-    @JoinColumn({name: 'storyboard_id'})
-    storyboard_id: Storyboard | number
+    // @ManyToOne(()=> Storyboard, {nullable: false})
+    // @JoinColumn({name: 'storyboard_id'})
+    // storyboard_id: Storyboard | number
 
     @ManyToOne(()=> User, {nullable: false})
     @JoinColumn({name: 'user_id'})

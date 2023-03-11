@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Story = void 0;
 const typeorm_1 = require("typeorm");
-const storyboard_model_1 = require("../../storyboard/models/storyboard.model");
 const user_model_1 = require("../../user/models/user.model");
 const story_status_enum_1 = require("../enums/story-status.enum");
 const story_details_model_1 = require("./story-details.model");
@@ -33,11 +32,6 @@ __decorate([
     (0, typeorm_1.Column)('enum', { enum: story_status_enum_1.StoryStatus, default: story_status_enum_1.StoryStatus.PUBLISHED }),
     __metadata("design:type", String)
 ], Story.prototype, "status", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => storyboard_model_1.Storyboard, { nullable: false }),
-    (0, typeorm_1.JoinColumn)({ name: 'storyboard_id' }),
-    __metadata("design:type", Object)
-], Story.prototype, "storyboard_id", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_model_1.User, { nullable: false }),
     (0, typeorm_1.JoinColumn)({ name: 'user_id' }),

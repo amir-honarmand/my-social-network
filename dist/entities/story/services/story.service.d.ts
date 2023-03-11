@@ -1,3 +1,4 @@
+/// <reference types="multer" />
 import { BaseError } from "../../../utils/error-handler";
 import { AddStoryDto } from "../dto/add-story.dto";
 import { DeleteStoryDto } from "../dto/delete-story.dto";

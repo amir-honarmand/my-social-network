@@ -1,9 +1,7 @@
 import { postgres } from "../../../database/postgres";
 import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
 import { BaseError } from "../../../utils/error-handler";
-import { excludeColumns } from "../../../utils/exclude-columns";
 import { pagination } from "../../../utils/pagination";
-import { User } from "../../user/models/user.model";
 import { AddStoryDto } from "../dto/add-story.dto";
 import { DeleteStoryDto } from "../dto/delete-story.dto";
 import { EditStoryDto } from "../dto/edit-story.dto";
@@ -20,7 +18,6 @@ export const storyRepository = (() => {
             tags_id: addStoryDto.tags_id,
             favorites_id: addStoryDto.favorites_id,
             story_details_id: addStoryDto.story_details_id,
-            storyboard_id: addStoryDto.storyboard_id,
             user_id: addStoryDto.user_id,
             // status: addStoryDto.status
         });
@@ -38,7 +35,6 @@ export const storyRepository = (() => {
             },
             relations: {
                 story_details_id: true,
-                storyboard_id: true,
                 user_id: true
             }
         });
@@ -64,7 +60,6 @@ export const storyRepository = (() => {
             },
             relations: {
                 story_details_id: true,
-                storyboard_id: true,
                 user_id: true
             }
         });

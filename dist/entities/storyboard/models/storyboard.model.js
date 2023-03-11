@@ -18,6 +18,10 @@ __decorate([
     __metadata("design:type", Number)
 ], Storyboard.prototype, "id", void 0);
 __decorate([
+    (0, typeorm_1.Column)('int4', { nullable: true }),
+    __metadata("design:type", Number)
+], Storyboard.prototype, "day", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], Storyboard.prototype, "createdAt", void 0);

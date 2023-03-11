@@ -1,13 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from "typeorm"
-import { User } from "../../user/models/user.model"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany } from "typeorm"
+import { Story } from "../../story/models/story.model"
 
 @Entity()
 export class Storyboard {
     @PrimaryGeneratedColumn()
     id: number
 
-    // @Column('varchar', {nullable: false})
-    // : []
+    @Column('int4', {nullable: true})
+    day: number
+
+    // @OneToMany(()=> Story, (story)=> story.storyboard_id)
+    // stories: Story[]
 
     @CreateDateColumn()
     createdAt: Date

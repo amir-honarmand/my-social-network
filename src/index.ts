@@ -2,6 +2,7 @@ import express from 'express';
 import config from './config';
 import expressApp from './app/express-app';
 import {postgres} from './database/postgres';
+// require('./cron')
 
 const StartServer = async () => {
 
