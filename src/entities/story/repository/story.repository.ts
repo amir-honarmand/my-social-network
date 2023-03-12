@@ -9,6 +9,7 @@ import { GetAllStoryDto } from "../dto/get-all-story.dto";
 import { GetStoryDto } from "../dto/get-story.dto";
 import { StoryStatus } from "../enums/story-status.enum";
 import { Story } from "../models/story.model";
+import { storyDetailsRepository } from "./story-details.repository";
 
 export const storyRepository = (() => {
     async function addStory(addStoryDto: AddStoryDto): Promise<void> {
@@ -32,8 +33,8 @@ export const storyRepository = (() => {
                 status: StoryStatus.PUBLISHED
             },
             select: {
-                user_id: {id: true, avatar: true, user_name: true},
-                story_details_id: {id: true, share_count: true, view_count: true, comment_count: true, like_count: true},
+                user_id: { id: true, avatar: true, user_name: true },
+                story_details_id: { id: true, share_count: true, view_count: true, comment_count: true, like_count: true },
             },
             relations: {
                 story_details_id: true,
@@ -52,13 +53,13 @@ export const storyRepository = (() => {
         const skip: number = pagination(getAllStoryDto.page, getAllStoryDto.limit);
 
         const stories = await postgres.getRepository(Story).findAndCount({
-            where: {status: StoryStatus.PUBLISHED},
-            order: {createdAt: 'DESC'},
+            where: { status: StoryStatus.PUBLISHED },
+            order: { createdAt: 'DESC' },
             skip,
             take: getAllStoryDto.limit,
             select: {
-                user_id: {id: true, avatar: true, user_name: true},
-                story_details_id: {id: true, share_count: true, view_count: true, comment_count: true, like_count: true},
+                user_id: { id: true, avatar: true, user_name: true },
+                story_details_id: { id: true, share_count: true, view_count: true, comment_count: true, like_count: true },
             },
             relations: {
                 story_details_id: true,
@@ -90,17 +91,29 @@ export const storyRepository = (() => {
         }
     }
 
-    async function deleteStory(deleteStoryDto: DeleteStoryDto, userId: number): Promise<void> {
-        const story = await postgres.getRepository(Story).softDelete({
-            id: deleteStoryDto.storyId, user_id: userId
-        });
+    async function deleteStoryTransaction(deleteStoryDto: DeleteStoryDto, userId: number): Promise<void> {
+        const queryRunner = postgres.createQueryRunner();
+        await queryRunner.connect();
+        await queryRunner.startTransaction();
 
-        if (!story.affected) {
+        try {
+            await queryRunner.manager.withRepository(postgres.getRepository(Story))
+            .softDelete({
+                id: deleteStoryDto.storyId, user_id: userId
+            });
+            
+            await storyDetailsRepository.deleteStoryDetailsWithTransaction(deleteStoryDto.storyId, queryRunner);
+
+            await queryRunner.commitTransaction();
+        } catch (error) {
+            await queryRunner.rollbackTransaction();
             throw new BaseError(
                 HttpStatusMessages.UNPROCESSABLE_ENTITY,
                 HttpStatusCodes.UNPROCESSABLE_ENTITY,
                 HttpStatusMessages.DELETE_FAILED
             )
+        } finally {
+            await queryRunner.release();
         }
     }
 
@@ -109,6 +122,6 @@ export const storyRepository = (() => {
         getStory,
         getAllStory,
         editStory,
-        deleteStory,
+        deleteStoryTransaction,
     };
 })();

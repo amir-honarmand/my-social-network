@@ -81,8 +81,7 @@ const editStory = async (editStoryDto: EditStoryDto, userId: number): Promise<bo
 }
 
 const deleteStory = async (deleteStoryDto: DeleteStoryDto, userId: number): Promise<boolean | BaseError> => {
-    await storyRepository.deleteStory(deleteStoryDto, userId);
-    await storyDetailsRepository.deleteStoryDetailsByStoryId(deleteStoryDto.storyId);
+    await storyRepository.deleteStoryTransaction(deleteStoryDto, userId);
     return true;
 }
 

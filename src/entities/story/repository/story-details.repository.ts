@@ -1,3 +1,4 @@
+import { QueryRunner } from "typeorm";
 import { postgres } from "../../../database/postgres";
 import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
 import { BaseError } from "../../../utils/error-handler";
@@ -10,10 +11,10 @@ export const storyDetailsRepository = (() => {
         return storyDetails.raw[0].id;
     }
 
-    async function deleteStoryDetailsByStoryId(storyId: number): Promise<void> {
-        const storyDetails = await postgres.getRepository(StoryDetails).softDelete({
+    async function deleteStoryDetailsWithTransaction(storyId: number, queryRunner: QueryRunner): Promise<void> {
+        const storyDetails = await queryRunner.manager.withRepository(postgres.getRepository(StoryDetails)).softDelete({
             story_id: storyId,
-        })
+        });
 
         if (!storyDetails.affected) {
             throw new BaseError(
@@ -26,6 +27,6 @@ export const storyDetailsRepository = (() => {
 
     return {
         addStoryDetails,
-        deleteStoryDetailsByStoryId,
+        deleteStoryDetailsWithTransaction,
     };
 })();

@@ -60,8 +60,7 @@ const editStory = async (editStoryDto, userId) => {
     return true;
 };
 const deleteStory = async (deleteStoryDto, userId) => {
-    await story_repository_1.storyRepository.deleteStory(deleteStoryDto, userId);
-    await story_details_repository_1.storyDetailsRepository.deleteStoryDetailsByStoryId(deleteStoryDto.storyId);
+    await story_repository_1.storyRepository.deleteStoryTransaction(deleteStoryDto, userId);
     return true;
 };
 exports.default = {
