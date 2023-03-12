@@ -8,6 +8,7 @@ export const EditStoryDto = {
         favorites_id: Joi.array().items(Joi.number().required()),
         tags_id: Joi.array().items(Joi.number().required()),
         status: Joi.string().allow('unpublished', 'published'),
+        turn_off_comments: Joi.boolean(),
     },
 };
 
@@ -20,4 +21,5 @@ export interface EditStoryDto {
     story_details_id: number;
     favorites_id: number[];
     tags_id: number[];
+    turn_off_comments: boolean;
 }

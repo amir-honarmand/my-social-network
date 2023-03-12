@@ -2,10 +2,10 @@ import Joi from 'joi';
 
 export const GetStoryDto = {
     params: {
-        storyId: Joi.string().max(200).required()
+        storyId: Joi.number().min(1).required()
     },
 };
 
 export interface GetStoryDto {
-    storyId: string;
+    storyId: number;
 }

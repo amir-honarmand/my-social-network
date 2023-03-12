@@ -36,6 +36,12 @@ export class Story {
     @Column('jsonb')
     tags_id: number[]
 
+    @Column('boolean', {default: false})
+    hide_statistics: boolean // hide like view share and comment count
+
+    @Column('boolean', {default: false})
+    turn_off_comments: boolean // hide like view share and comment count
+
     @CreateDateColumn()
     createdAt: Date
 

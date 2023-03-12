@@ -5,6 +5,8 @@ export declare const AddStoryDto: {
         caption: Joi.StringSchema<string>;
         favorites_id: Joi.ArraySchema<any[]>;
         tags_id: Joi.ArraySchema<any[]>;
+        hide_statistics: Joi.BooleanSchema<boolean>;
+        turn_off_comments: Joi.BooleanSchema<boolean>;
     };
 };
 export interface AddStoryDto {
@@ -15,4 +17,6 @@ export interface AddStoryDto {
     story_details_id: number;
     favorites_id: number[];
     tags_id: number[];
+    hide_statistics: boolean;
+    turn_off_comments: boolean;
 }

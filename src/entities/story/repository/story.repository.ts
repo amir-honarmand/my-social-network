@@ -19,6 +19,8 @@ export const storyRepository = (() => {
             favorites_id: addStoryDto.favorites_id,
             story_details_id: addStoryDto.story_details_id,
             user_id: addStoryDto.user_id,
+            hide_statistics: addStoryDto.hide_statistics,
+            turn_off_comments: addStoryDto.turn_off_comments,
             // status: addStoryDto.status
         });
     }
@@ -26,7 +28,7 @@ export const storyRepository = (() => {
     async function getStory(getStoryDto: GetStoryDto): Promise<Story> {
         const story = await postgres.getRepository(Story).findOne({
             where: {
-                id: +getStoryDto.storyId,
+                id: getStoryDto.storyId,
                 status: StoryStatus.PUBLISHED
             },
             select: {
@@ -74,7 +76,8 @@ export const storyRepository = (() => {
                 caption: editStoryDto.caption,
                 tags_id: editStoryDto.tags_id,
                 favorites_id: editStoryDto.favorites_id,
-                status: editStoryDto.status
+                status: editStoryDto.status,
+                turn_off_comments: editStoryDto.turn_off_comments
             }
         );
 

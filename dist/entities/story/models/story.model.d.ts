@@ -10,6 +10,8 @@ export declare class Story {
     story_details_id: StoryDetails | number;
     favorites_id: number[];
     tags_id: number[];
+    hide_statistics: boolean;
+    turn_off_comments: boolean;
     createdAt: Date;
     updatedAt: Date;
     deletedAt: Date;
