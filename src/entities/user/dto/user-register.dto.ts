@@ -12,7 +12,7 @@ export const UserRegisterDto = {
         email: Joi.string().email().lowercase().max(200).required(),
         password: Joi.string().regex(/^(?=.*?[a-z])(?=.*?[0-9]).{8,64}$/).required(),
         mobile: Joi.string().max(20),
-        favorites_id: Joi.array().required(),
+        favorites_id: Joi.array(),
     },
 };
 

@@ -37,7 +37,7 @@ export class User {
     @Column('varchar', {nullable: true, length: 200})
     timezone: string
 
-    @Column('jsonb', {nullable: false})
+    @Column('jsonb', {nullable: true})
     favorites_id: object
 
     @OneToMany(()=> Story, (story)=>story.user_id)

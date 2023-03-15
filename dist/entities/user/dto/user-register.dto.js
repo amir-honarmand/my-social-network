@@ -17,7 +17,7 @@ exports.UserRegisterDto = {
         email: joi_1.default.string().email().lowercase().max(200).required(),
         password: joi_1.default.string().regex(/^(?=.*?[a-z])(?=.*?[0-9]).{8,64}$/).required(),
         mobile: joi_1.default.string().max(20),
-        favorites_id: joi_1.default.array().required(),
+        favorites_id: joi_1.default.array(),
     },
 };
 //# sourceMappingURL=user-register.dto.js.map

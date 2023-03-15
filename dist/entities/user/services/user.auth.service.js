@@ -29,6 +29,7 @@ const login = async (userDto) => {
     await user_repository_1.UserRepository.removeUserSession(user.id);
     await user_repository_1.UserRepository.addUserSession(user.id, accessToken, refreshToken, token.accessExpiresAt, token.refreshExpiresAt);
     return {
+        user: { id: user.id },
         accessToken: {
             token: accessToken,
             expiresAt: token.accessExpiresAt,

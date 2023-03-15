@@ -51,6 +51,7 @@ export const login = async (userDto: UserLoginDto): Promise<object | BaseError> 
     );
 
     return {
+        user: {id: user.id},
         accessToken: {
             token: accessToken,
 			expiresAt: token.accessExpiresAt,
