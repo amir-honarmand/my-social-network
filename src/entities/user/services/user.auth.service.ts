@@ -3,7 +3,7 @@ import redis from "../../../database/redis-config";
 import { HttpStatusCodes, HttpStatusMessages } from "../../../shared/http-status-code";
 import { Token } from "../../../utils/jwt";
 import { BaseError } from "../../../utils/error-handler";
-import { UserRepository } from "../repository/user.repository";
+import { UserAuthRepository } from "../repository/userAuth.repository";
 import { UserRegisterDto } from "../dto/user-register.dto";
 import { generatePass, validatePass } from "../../../utils/password";
 import { UserLoginDto } from "../dto/user-login.dto";
@@ -18,7 +18,7 @@ export const register = async (body: UserRegisterDto): Promise<boolean | BaseErr
         password: password.hash
     };
     
-    await UserRepository.registerUser(userRegisterDetails);
+    await UserAuthRepository.registerUser(userRegisterDetails);
     
     return true;
 }
@@ -26,7 +26,7 @@ export const register = async (body: UserRegisterDto): Promise<boolean | BaseErr
 /* handle login */
 export const login = async (userDto: UserLoginDto): Promise<object | BaseError> => {
     /* find user */
-    const user = await UserRepository.findByEmail(userDto.email);
+    const user = await UserAuthRepository.findByEmail(userDto.email);
     
     /* password validation */
 	const checkPassword = await validatePass(userDto.password, user.salt, user.password);
@@ -38,11 +38,11 @@ export const login = async (userDto: UserLoginDto): Promise<object | BaseError> 
     const refreshToken: string = token.generateRefresh();
 	const accessToken: string = token.generateAccess();
 
-    await UserRepository.removeUserSession(user.id);
+    await UserAuthRepository.removeUserSession(user.id);
 
     //* add to user activity
 
-    await UserRepository.addUserSession(
+    await UserAuthRepository.addUserSession(
         user.id,
         accessToken,
         refreshToken,
@@ -51,7 +51,13 @@ export const login = async (userDto: UserLoginDto): Promise<object | BaseError> 
     );
 
     return {
-        user: {id: user.id},
+        user: {
+            _id: user.id, 
+            firstName: user.first_name, 
+            lastName: user.last_name,
+            picturePath: user.avatar,
+            // friends: [],
+        },
         accessToken: {
             token: accessToken,
 			expiresAt: token.accessExpiresAt,
@@ -61,4 +67,9 @@ export const login = async (userDto: UserLoginDto): Promise<object | BaseError> 
             expiresAt: token.refreshExpiresAt,
         },
 	};
+}
+
+export default {
+    register,
+    login
 }

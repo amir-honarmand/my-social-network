@@ -4,19 +4,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const user_auth_controller_1 = require("../controllers/user.auth.controller");
 const auth_1 = __importDefault(require("../../../middlewares/auth"));
 const user_register_dto_1 = require("../dto/user-register.dto");
 const dtoValidator_1 = require("../../../middlewares/dtoValidator");
 const user_login_dto_1 = require("../dto/user-login.dto");
-const user_controller_1 = require("../controllers/user.controller");
+const user_auth_controller_1 = __importDefault(require("../controllers/user.auth.controller"));
+const user_controller_1 = __importDefault(require("../controllers/user.controller"));
+const getUser_dto_1 = require("../dto/getUser.dto");
 const userRouter = express_1.default.Router();
 userRouter.route('/auth/register')
-    .post((0, dtoValidator_1.dtoValidator)(user_register_dto_1.UserRegisterDto), user_auth_controller_1.registerController);
+    .post((0, dtoValidator_1.dtoValidator)(user_register_dto_1.UserRegisterDto), user_auth_controller_1.default.register);
 userRouter.route('/auth/login')
-    .post((0, dtoValidator_1.dtoValidator)(user_login_dto_1.UserLoginDto), user_auth_controller_1.loginController);
-userRouter.route('/avatar')
-    .put(auth_1.default.userAuthMiddleware, user_controller_1.editUserAvatarController)
-    .get(auth_1.default.userAuthMiddleware, user_controller_1.getUserAvatarController);
+    .post((0, dtoValidator_1.dtoValidator)(user_login_dto_1.UserLoginDto), user_auth_controller_1.default.login);
+userRouter.route('/profile/avatar')
+    .put(auth_1.default.userAuthMiddleware, user_controller_1.default.editUserAvatar)
+    .get(auth_1.default.userAuthMiddleware, user_controller_1.default.getUserAvatar);
+userRouter.route('/profile/:userId')
+    .get(auth_1.default.userAuthMiddleware, (0, dtoValidator_1.dtoValidator)(getUser_dto_1.GetUserDto), user_controller_1.default.getUser);
 exports.default = userRouter;
 //# sourceMappingURL=user.router.js.map
