@@ -1,13 +1,32 @@
 import * as dotEnv from "dotenv";
 
-if (process.env.NODE_ENV !== "prod") {
-  const configFile: string = `./.env.${process.env.NODE_ENV}`;
+if (process.env.NODE_ENV !== "production") {
+  const configFile: string = `./.env`;
   dotEnv.config({ path: configFile });
 } else {
-  dotEnv.config();
+  const configFile: string = `./.env.prod`;
+  dotEnv.config({ path: configFile });
 }
 
 export default {
   PORT: process.env.PORT,
-  APP_SECRET: process.env.APP_SECRET as string,
+  BASE_URL: 'http://localhost:8001/v1',
+  
+  DATABASE: {
+    HOST: process.env.DATABASE_HOST,
+    USERNAME: process.env.DATABASE_USERNAME,
+    PASS: process.env.DATABASE_PASSWORD,
+    NAME: process.env.DATABASE_NAME,
+    
+    REDIS: {
+      HOST: process.env.DATABASE_REDIS_HOST
+    }
+  },
+
+  AUTHENTICATION: {
+    USER_SECRET: process.env.USER_SECRET,
+    PUBLIC_SECRET: process.env.PUBLIC_SECRET,
+    USER_REFRESH_EXPIRE: process.env.USER_REFRESH_EXPIRE,
+    USER_ACCESS_EXPIRE: process.env.USER_ACCESS_EXPIRE,
+  }
 };
